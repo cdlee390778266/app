@@ -42,6 +42,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
     }
   })
 
+  .state('app.line', {
+      url: '/line',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/line.html',
+          controller: 'lineCtrl'
+        }
+      }
+    })
+
   .state('app.bar-h', {
       url: '/bar-h',
       views: {
@@ -51,25 +61,36 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
         }
       }
     })
-    .state('app.bar-v', {
-      url: '/bar-v',
+
+    .state('app.bar-line', {
+      url: '/bar-line',
       views: {
         'menuContent': {
-          templateUrl: 'templates/bar-v.html',
-          controller: 'barvCtrl'
+          templateUrl: 'templates/bar-line.html',
+          controller: 'barLineCtrl'
         }
       }
     })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+    .state('app.radar', {
+      url: '/radar',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/radar.html',
+          controller: 'radarCtrl'
+        }
       }
-    }
-  });
+    })
+
+  .state('app.gauge', {
+      url: '/gauge',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/gauge.html',
+          controller: 'gaugeCtrl'
+        }
+      }
+    });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/pie');
 });
