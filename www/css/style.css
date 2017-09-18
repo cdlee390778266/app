@@ -4,3 +4,78 @@
     padding: 10px;
     height: 300px;
 }
+.gauge-title {
+    position: relative;
+    padding-top: 10px;
+}
+.gauge-title h1, .gauge-title h2{
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    padding: 0 10px;
+    margin: 0;
+    color: #888;
+}
+.gauge-title h1 span {
+    color: #333;
+}
+.echarts-gauge {
+    height: 300px;
+    padding: 0;
+}
+.gauge-tag span {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    background: #1d6ebf;
+    color: #fff;
+    border-radius: 4px;
+    padding: 5px 10px;
+    box-shadow: 0 0 2px 0 #5181b1;
+}
+.pie-bar {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.pie-bar span{
+    color: #fff;
+    padding: 1px 5px;
+    border-radius: 10px;
+    background: #fa4a4c;
+}
+.barh-bar {
+    height: 40px;
+    line-height: 40px;
+    background: #eee;
+    padding: 0 10px;
+}
+.barh-bar i {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    width: 3px;
+    height: 15px;
+    background: #d2393c;
+}
+.barh-bar span {
+    color: #666;
+    float: right;
+}
+.barh-title {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    border:0;
+    padding: 10px;
+}
+.barh-title span {
+    float: right;
+}
+.line-bar strong {
+    color: #000;
+    font-weight: normal;
+}
+.line-bar span{
+    color: #000;
+}

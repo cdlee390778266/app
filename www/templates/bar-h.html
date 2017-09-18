@@ -1,7 +1,16 @@
 <ion-view view-title="柱形图-h">
-  <ion-content>
+  <ion-content class="padding">
+    <div class="barh-bar">
+        <i></i>
+        <strong>公司规模</strong>
+        <span>截止日期：2017-09-04</span>
+    </div>
     
-    <ng-echarts class="echarts" ec-config="baseConfig" ec-option="barhOption" theme="theme" ></ng-echarts>
+    <div class="barh-title">
+        <strong>总市值</strong><span>单位：亿元</span>
+    </div>
+
+    <ng-echarts class="echarts echarts-barh" ec-config="baseConfig" ec-option="barhOption" theme="theme" ></ng-echarts>
 
   </ion-content>
 </ion-view>

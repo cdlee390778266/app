@@ -1,7 +1,14 @@
 <ion-view view-title="仪表盘">
   <ion-content>
-    
-    <ng-echarts class="echarts" ec-config="baseConfig" ec-option="gaugeOption" theme="theme" ></ng-echarts>
+    <div class="gauge-title">
+        <h1>综合评分在 <span>银行</span> 行业25家</h1>
+        <h2>公司中名列：</h2>
+        <div class="gauge-tag">
+            <span>2017年一季报</span>
+        </div>
+    </div>
+
+    <ng-echarts class="echarts echarts-gauge" ec-config="baseConfig" ec-option="gaugeOption" theme="theme" ></ng-echarts>
 
   </ion-content>
 </ion-view>
