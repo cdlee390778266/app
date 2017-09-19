@@ -60,19 +60,20 @@ angular.module('starter.services', [])
    */
   Utils.getJSON = function(url, successCallback, errorCallback, finallyCallback) {
 
-      if(!url) return;
+      // if(!url) return;
       
-      $http.get(url)
-        .then(function(data) {
-          successCallback != undefined ? successCallback(data.data) : '';
-        }, function(data) {
-          if (data.status == 404) {
-            errorCallback != undefined ? errorCallback() : '';
-          }
-        })
-        .finally(function() {
-          finallyCallback != undefined ? finallyCallback() : '';
-        });
+      // $http.get(url)
+      //   .then(function(data) {
+      //     successCallback != undefined ? successCallback(data.data) : '';
+      //   }, function(data) {
+      //     if (data.status == 404) {
+      //       errorCallback != undefined ? errorCallback() : '';
+      //     }
+      //   })
+      //   .finally(function() {
+      //     finallyCallback != undefined ? finallyCallback() : '';
+      //   });
+      successCallback();
     };
 
     return Utils;

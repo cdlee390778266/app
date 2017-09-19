@@ -9,37 +9,6 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  // Form data for the login modal
-  $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
-
   $scope.baseConfig = {
       theme:'default',
       dataLoaded:true
@@ -47,7 +16,7 @@ angular.module('starter.controllers', [])
 
 })
 //饼状图
-.controller('pieCtrl', function($scope, Utils) { 
+.controller('pieCtrl', function($scope, $window, Utils) { 
   $scope.pieOption = {}
   Utils.showPop();
 
@@ -55,55 +24,59 @@ angular.module('starter.controllers', [])
     Utils.hidePop()
     $scope.pieOption = {
       title : {
-          text: '2017年中报',
-          textStyle: {
-            fontWeight: 'normal',
-            fontSize: 14
-          }
+        text: '2017年中报',
+        textStyle: {
+          fontWeight: 'normal',
+          fontSize: 14
+        }
       },
       tooltip : {
-          //trigger: 'item',
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        formatter: "{a} <br/>{b} : {c}"
       },
       legend: {
-          orient: 'vertical',
-          right: 0,
-          top: '25%',
-          data: data
+        orient: 'vertical',
+        right: 0,
+        top: '25%',
+        data: [
+            {value:8, name:'生态修复项目'},
+            {value:3, name:'市政绿化项目'},
+            {value:1, name:'地产景观'}
+          ]
       },
       series : [
-          {
-              name: '访问来源',
-              type: 'pie',
-              radius : '50%',
-              color:['#eb536c', '#7dc9fa','#c03bbb'],
-              label: {
-                normal: {
-                    show: false
-                },
-                emphasis: {
-                    show: false
-                }
-              },
-              labelLine: {
-                normal: {
-                  show: false
-                }
-              },
-              data:[
-                  {value:8, name:'生态修复项目'},
-                  {value:3, name:'市政绿化项目'},
-                  {value:1, name:'地产景观'}
-              ],
-              itemStyle: {
-                  emphasis: {
-                      shadowBlur: 10,
-                      shadowOffsetX: 0,
-                      shadowColor: 'rgba(0, 0, 0, 0.5)'
-                  }
-              }
+        {
+          name: '2017年中报',
+          type: 'pie',
+          radius : '50%',
+          center: ['40%', '50%'],
+          color:['#eb536c', '#7dc9fa','#c03bbb'],
+          label: {
+            normal: {
+              show: false
+            },
+            emphasis: {
+              show: false
+            }
+          },
+          labelLine: {
+            normal: {
+              show: false
+            }
+          },
+          data:[
+            {value:8, name:'生态修复项目'},
+            {value:3, name:'市政绿化项目'},
+            {value:1, name:'地产景观'}
+          ],
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
           }
-        ]
+        }
+      ]
     };
 
   })
@@ -118,58 +91,57 @@ angular.module('starter.controllers', [])
     Utils.hidePop()
     $scope.barhOption = {
       tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-              type: 'shadow'
-          }
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
       },
       grid: {
-          left: '3%',
-          right: '10%',
-          bottom: '3%',
-          containLabel: true
+        left: '3%',
+        right: '10%',
+        bottom: '3%',
+        containLabel: true
       },
       xAxis: {
-          type: 'value',
-          boundaryGap: [0, 0.01],
-          show: false
+        type: 'value',
+        boundaryGap: [0, 0.01],
+        show: false
       },
       yAxis: {
-          type: 'category',
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            show: false 
-          },
-          axisTick: {
-            show: false
-          },
-          data: ['行业水平','浦发银行','工商银行','建设银行','中国银行','农业银行']
+        type: 'category',
+        splitLine: {
+          show: false
+        },
+        axisLine: {
+          show: false 
+        },
+        axisTick: {
+          show: false
+        },
+        data: ['行业水平','浦发银行','工商银行','建设银行','中国银行','农业银行']
       },
       label: {
-          normal: {
-              show: true,
-              position: 'right'
-          }
+        normal: {
+          show: true,
+          position: 'right'
+        }
       },
       series: [
-          {
-              name: '2011年',
-              type: 'bar',
-              data: data.reverse(),
-              itemStyle: {   
-                normal:{  
-                    color: function (params){
-                        var colorList = ['#ed9943', '#f24a64', '#16a1e4', '#7766cc', '#aa8abc', '#eb536c'].reverse();
-                        return colorList[params.dataIndex];
-                    }
-                }
+        {
+          name: '2011年',
+          type: 'bar',
+          data: [402029, 359166, 2095669, 1720076, 1239373, 1218978].reverse(),
+          itemStyle: {   
+            normal:{  
+              color: function (params){
+                var colorList = ['#ed9943', '#f24a64', '#16a1e4', '#7766cc', '#aa8abc', '#eb536c'].reverse();
+                return colorList[params.dataIndex];
+              }
             }
           }
+        }
       ]
     }
-
   })
 })
 
@@ -182,30 +154,26 @@ angular.module('starter.controllers', [])
     Utils.hidePop()
     $scope.lineOption = {
       tooltip: {
-          trigger: 'axis'
-      },
-      legend: {
-          data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+        trigger: 'axis'
       },
       grid: {
-          left: '0%',
-          right: '0%',
-          bottom: '3%',
-          containLabel: true
+        left: '0%',
+        right: '0%',
+        bottom: '3%',
+        containLabel: true
       },
       xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          min: -1,
-          max: 6,
-
-          axisLabel :{  
-              interval:0   
-          },
-          data: ['2014\n年年报','2015\n年年报','2016\n年年报','2017\n年年报','2017\n一季报','2017\n年中报']
+        type: 'category',
+        boundaryGap: false,
+        min: -1,
+        max: 6,
+        axisLabel :{  
+          interval:0   
+        },
+        data: ['2014\n年年报','2015\n年年报','2016\n年年报','2017\n年年报','2017\n一季报','2017\n年中报']
       },
       yAxis: {
-          type: 'value'
+        type: 'value'
       },
       series: [
         {
@@ -216,8 +184,7 @@ angular.module('starter.controllers', [])
         }
       ]
     }
-  })
-  
+  }) 
 })
 
 //柱状图+折线图
@@ -228,110 +195,82 @@ angular.module('starter.controllers', [])
   Utils.getJSON('data/barv.json', function(data) {
     Utils.hidePop()
     $scope.barLineOption = {
-        title: {
-            text: '动态数据',
-            subtext: '纯属虚构'
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#283b56'
+          }
         },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'cross',
-                label: {
-                    backgroundColor: '#283b56'
-                }
-            }
+        formatter: '{b0}<br />{a0}: {c0}k<br />{a1}: {c1}'
+      },
+      grid: {
+        left: '5%',
+        right: '0%',
+        bottom: '10%',
+        containLabel: true
+      },
+      legend: {
+        bottom: 0,
+        data:['股东人数(户)', '股价(元)']
+      },
+      dataZoom: {
+        show: false,
+        start: 0,
+        end: 100
+      },
+      xAxis: [
+        {
+          type: 'category',
+          boundaryGap: true,
+          data: ['2016年中报', '2016年三季报', '2016年年报',  '2017年一季报', '2017年中报']
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value',
+          scale: true,
+          name: '股东人数(户)',
+          max: 200,
+          min: 0,
+          axisLabel: {
+              formatter: '{value} k'
+          },
+          boundaryGap: [0.2, 0.2]
         },
-        legend: {
-            data:['最新成交价', '预购队列']
+        {
+          type: 'value',
+          scale: true,
+          name: '股价(元)',
+          max: 20,
+          min: 0,
+          boundaryGap: [0.2, 0.2]
+        }
+      ],
+      series: [
+        {
+          name:'股东人数(户)',
+          type:'bar',
+          xAxisIndex: 0,
+          yAxisIndex: 0,
+          color: ['#418dd9'],
+          axisLabel: {
+            formatter: '{value} k'
+          },
+          data: [170, 160, 155, 175, 180]
         },
-        toolbox: {
-            show: true,
-            feature: {
-                dataView: {readOnly: false},
-                restore: {},
-                saveAsImage: {}
-            }
-        },
-        dataZoom: {
-            show: false,
-            start: 0,
-            end: 100
-        },
-        xAxis: [
-            {
-                type: 'category',
-                boundaryGap: true,
-                data: (function (){
-                    var now = new Date();
-                    var res = [];
-                    var len = 10;
-                    while (len--) {
-                        res.unshift(now.toLocaleTimeString().replace(/^\D*/,''));
-                        now = new Date(now - 2000);
-                    }
-                    return res;
-                })()
-            },
-            {
-                type: 'category',
-                boundaryGap: true,
-                data: (function (){
-                    var res = [];
-                    var len = 10;
-                    while (len--) {
-                        res.push(len + 1);
-                    }
-                    return res;
-                })()
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value',
-                scale: true,
-                name: '价格',
-                max: 30,
-                min: 0,
-                boundaryGap: [0.2, 0.2]
-            },
-            {
-                type: 'value',
-                scale: true,
-                name: '预购量',
-                max: 1200,
-                min: 0,
-                boundaryGap: [0.2, 0.2]
-            }
-        ],
-        series: [
-            {
-                name:'预购队列',
-                type:'bar',
-                xAxisIndex: 1,
-                yAxisIndex: 1,
-                data:(function (){
-                    var res = [];
-                    var len = 10;
-                    while (len--) {
-                        res.push(Math.round(Math.random() * 1000));
-                    }
-                    return res;
-                })()
-            },
-            {
-                name:'最新成交价',
-                type:'line',
-                data:(function (){
-                    var res = [];
-                    var len = 0;
-                    while (len < 10) {
-                        res.push((Math.random()*10 + 5).toFixed(1) - 0);
-                        len++;
-                    }
-                    return res;
-                })()
-            }
-        ]
+        {
+          name:'股价(元)',
+          type:'line',
+          xAxisIndex: 0,
+          yAxisIndex: 1,
+          color: ['#ff5959'],
+          symbolSize: 10,
+          symbol: 'circle',
+          data: [14, 17, 16,16.5, 7.5]
+        }
+      ]
     }
   })
 })
@@ -345,44 +284,134 @@ angular.module('starter.controllers', [])
     Utils.hidePop()
     $scope.radarOption = {
       title: {
-          text: '基础雷达图'
+        text: '雷达图'
       },
-      tooltip: {},
-      legend: {
-          data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+      tooltip: {
+        formatter: function(params) {
+          var tip = [params.name];
+          for(var i = 0; i < $scope.radarOption.radar[0].indicator.length; i++) {
+            tip.push($scope.radarOption.radar[0].indicator[i].dsc.text + ': ' +  $scope.radarOption.series[0].data[0].value[i]);
+          }
+          return tip.join('<br/>');
+        }
       },
-      radar: {
-          // shape: 'circle',
-          name: {
-              textStyle: {
-                  color: '#fff',
-                  backgroundColor: '#999',
-                  borderRadius: 3,
-                  padding: [3, 5]
-             }
+      radar: [
+      {
+        indicator: [
+            { name: 'R', max: 500, dsc: {level: '良', text: '风控能力', index: 17, levelNum: 1, showIndex: 1}},
+            { name: 'D', dsc: {level: '良', text: '成长能力', index: 3, levelNum: 1, showIndex: 2}},
+            { name: 'P', dsc: {level: '优', text: '盈利能力', index: 4, levelNum: 2, showIndex: 3}},
+            
+            { name: 'C', dsc: {level: '良', text: '资本充足率', index: 18, levelNum: 1, showIndex: 4}}
+        ],
+        radius: 66,
+        startAngle: -45,
+        splitNumber: 10,
+        shape: 'circle',
+        name: {
+          formatter: function(value, indicator) {
+            var top = '';
+            var bottom = '';
+            var valA = '{a|' + value + '}';
+            var valB = '{b|' + indicator.dsc.level + '}';
+            var valC = '{c|' + indicator.dsc.text + '}';
+            var valD = '{d|[' + indicator.dsc.index + ']}';
+            var valE = '';
+            if(indicator.dsc.levelNum == 2) {
+              valB = '{b1|' + indicator.dsc.level + '}';
+              valD = '{d1|[' + indicator.dsc.index + ']}';
+            }
+            
+            switch(indicator.dsc.showIndex){
+              case 1: 
+                top = valA + valE + valB;
+                bottom = valC + valD;
+                break;
+              case 2: 
+                top = valC + valD;
+                bottom = valA + valB;
+                break;
+              case 3: 
+                top = valD + valC;
+                bottom = valB  + valE  + valA;
+                break;
+              case 4: 
+                top = valB  + valE  + valA;
+                bottom = valD  + valC;
+                break;
+            }
+
+            return [top, bottom].join('\n');
           },
-          indicator: [
-             { name: '销售（sales）', max: 6500},
-             { name: '管理（Administration）', max: 16000},
-             { name: '信息技术（Information Techology）', max: 30000},
-             { name: '客服（Customer Support）', max: 38000},
-             { name: '研发（Development）', max: 52000},
-             { name: '市场（Marketing）', max: 25000}
-          ]
-      },
+          rich: {
+            a: {
+             color: '#333',
+             fontSize: 14
+            },
+            b: {
+              width: 24,
+              height: 24,
+              lineHeight: 24,
+              fontSize: 14,
+              align: 'center',
+              color: '#fff',
+              backgroundColor: '#e5621c',
+              borderColor: '#b3714e'
+            },
+            b1: {
+              width: 24,
+              height: 24,
+              lineHeight: 24,
+              fontSize: 14,
+              align: 'center',
+              color: '#fff',
+              backgroundColor: '#f74f4f',
+              borderColor: '#bd6466'
+            },
+            c: {
+              height: 40,
+              color: '#333',
+              fontSize: 14
+            },
+            d: {
+              color: '#e5621c',
+              fontSize: 16,
+              fontWeight: 'bold'
+            },
+            d1: {
+              color: '#e83e3f',
+              fontSize: 16,
+              fontWeight: 'bold'
+            } 
+          }
+        }
+      }],
       series: [{
           name: '预算 vs 开销（Budget vs spending）',
           type: 'radar',
-          // areaStyle: {normal: {}},
+          symbol: 'circle',
+          symbolSize: 8,
+          areaStyle: {
+            normal: {
+              opacity: 0.5,
+              color: '#ffb782'
+            }
+          },
+          lineStyle: {
+            normal: {
+              color: '#e76409'
+            }
+          },
+          itemStyle: {
+            normal: {
+              color: '#e76409'
+            }
+          },
           data : [
-              {
-                  value : [4300, 10000, 28000, 35000, 50000, 19000],
-                  name : '预算分配（Allocated Budget）'
-              },
-               {
-                  value : [5000, 14000, 28000, 31000, 42000, 21000],
-                  name : '实际开销（Actual Spending）'
-              }
+             {
+              value : [440, 380, 310, 420],
+              name : '能力'
+            }
           ]
       }]
     }
@@ -394,104 +423,62 @@ angular.module('starter.controllers', [])
   Utils.showPop();
 
   Utils.getJSON('data/barv.json', function(data) {
-    $scope.p = {
-      // title: {
-      //   text: '综合评分在银行行业25家',
-      //   subtext: '公司中名列：',
-      //   textStyle: {
-      //     color: '#666',
-      //     fontSize: 14,
-      //     fontWeight: 'normal'
-      //   }
-      // },
-      tooltip : {
-          formatter: "{a} <br/>{b} : {c}%"
-      },
-      series: [
-          {
-              name: '业务指标',
-              type: 'gauge',
-              startAngle: 180,
-              endAngle: 0,
-              min: 0,
-              max: 25,
-              splitNumber: 5,
-              pointer: {
-                length: '30%'
-              },
-              axisLine: {            // 坐标轴线
-                lineStyle: {       // 属性lineStyle控制线条样式
-                    color: [[0.2, '#c33430'],[0.8, '#d38310'],[1, '#399437']],
-                    width: 20
-                }
-            },
-              // detail: {
-              //   formatter:'第【{value}】名',
-              //   color: '#333',
-              //   fontSize: 18
-              // },
-              data: [{value: 5, name: ''}]
-          }
-      ]
-    }
 
     Utils.hidePop()
     $scope.gaugeOption = {
       tooltip : {
-          formatter: "{a} <br/>{b} : {c}%"
+        formatter: "公司排名 : {c}"
       },
       series: [
-          {
-              name: '业务指标',
-              type: 'gauge',
-              startAngle: 180,
-              endAngle: 0,
-              min: 0,
-              max: 25,
-              splitNumber: 5,
-              pointer: {
-                length: '30%'
+        {
+          name: '业务指标',
+          type: 'gauge',
+          startAngle: 180,
+          endAngle: 0,
+          min: 0,
+          max: 25,
+          splitNumber: 5,
+          pointer: {
+            length: '30%'
+          },
+          axisLine: {            // 坐标轴线
+            lineStyle: {       // 属性lineStyle控制线条样式
+              color: [[0.2, '#c33430'],[0.8, '#d38310'],[1, '#399437']],
+              width: 20
+            }
+          },
+          detail: {
+            formatter: [
+              '{a|第} {b|【{value}】} {a|名}',
+              '{c|环球排名持平     评分74.5} {d|良}'
+            ].join('\n'),
+            rich: {
+              a: {
+               color: '#666',
+               fontSize: 14
               },
-              axisLine: {            // 坐标轴线
-                lineStyle: {       // 属性lineStyle控制线条样式
-                    color: [[0.2, '#c33430'],[0.8, '#d38310'],[1, '#399437']],
-                    width: 20
-                }
-            },
-            detail: {
-              formatter: [
-                '{a|第} {b|【{value}】} {a|名}',
-                '{c|环球排名持平     评分74.5} {d|良}'
-              ].join('\n'),
-              rich: {
-                  a: {
-                   color: '#666',
-                   fontSize: 14
-                  },
-                  b: {
-                    color: '#c33430',
-                    fontSize: 16,
-                    fontWeight: 'bold'
-                  },
-                  c: {
-                    height: 40,
-                    color: '#333',
-                    fontSize: 14
-                  },
-                  d: {
-                    width: 24,
-                    height: 24,
-                    lineHeight: 24,
-                    fontSize: 14,
-                    color: '#fff',
-                    backgroundColor: '#e5621c'
-                  } 
-              }
-
-            },
-
-            data: [{value: 5, name: ''}]
-          }
+              b: {
+                color: '#c33430',
+                fontSize: 16,
+                fontWeight: 'bold'
+              },
+              c: {
+                height: 40,
+                color: '#333',
+                fontSize: 14
+              },
+              d: {
+                width: 24,
+                height: 24,
+                lineHeight: 24,
+                fontSize: 14,
+                color: '#fff',
+                backgroundColor: '#e5621c'
+              } 
+            }
+          },
+          data: [{value: 5, name: ''}]
+        }
       ]
     }
   })
